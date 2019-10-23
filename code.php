@@ -6,10 +6,11 @@
     $email = $_POST['email'];
     $password = $_POST['password'];
     $cpassword = $_POST['confirmpassword'];
+    $usertype = $_POST['usertype'];
 
     if($password === $cpassword){
 
-      $query = "INSERT INTO register (username,email,password) VALUES ('$username', '$email', '$password')";
+      $query = "INSERT INTO register (username,email,password,usertype) VALUES ('$username', '$email', '$password', '$usertype')";
       $query_run = mysqli_query($connection, $query);
 
       if($query_run){
@@ -39,8 +40,9 @@
     $username = $_POST['edit_username'];
     $email = $_POST['edit_email'];
     $password = $_POST['edit_password'];
+    $usertype = $_POST['update_usertype'];
 
-    $query = "UPDATE register SET username='$username', email='$email', password='$password' WHERE id='$id' ";
+    $query = "UPDATE register SET username='$username', email='$email', password='$password', usertype='$usertype' WHERE id='$id' ";
     $query_run = mysqli_query($connection, $query);
 
     if($query_run){
