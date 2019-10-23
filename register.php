@@ -1,6 +1,7 @@
 <?php
-include('includes/header.php'); 
-include('includes/navbar.php'); 
+session_start();
+include('includes/header.php');
+include('includes/navbar.php');
 ?>
 
 
@@ -33,7 +34,7 @@ include('includes/navbar.php');
                 <label>Confirm Password</label>
                 <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
             </div>
-        
+
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -51,16 +52,33 @@ include('includes/navbar.php');
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Admin Profile 
+    <h6 class="m-0 font-weight-bold text-primary">Admin Profile
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile">
-              Add Admin Profile 
+              Add Admin Profile
             </button>
     </h6>
   </div>
 
   <div class="card-body">
 
+    <?php
+      if(isset($_SESSION['success']) && $_SESSION['success'] !=''){
+        echo '<h2> '.$_SESSION['success'].' </h2>';
+        unset($_SESSION['success']);
+      }
+      if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
+        echo '<h2 class="bg-info"> '.$_SESSION['status'].' </h2>';
+        unset($_SESSION['status']);
+      }
+    ?>
+
     <div class="table-responsive">
+
+      <?php
+        $connection = mysqli_connect("localhost", "root", "", "adminpanel");
+        $query = "SELECT * FROM register";
+        $query_run = mysqli_query($connection, $query);
+      ?>
 
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
         <thead>
@@ -74,26 +92,35 @@ include('includes/navbar.php');
           </tr>
         </thead>
         <tbody>
-     
+          <?php
+            if(mysqli_num_rows($query_run) > 0){
+              while ($row = mysqli_fetch_assoc($query_run)) {
+                ?>
           <tr>
-            <td> 1 </td>
-            <td> Funda of WEb IT</td>
-            <td> funda@example.com</td>
-            <td> *** </td>
+            <td><?php echo $row['id']; ?></td>
+            <td><?php echo $row['username']; ?></td>
+            <td><?php echo $row['email']; ?></td>
+            <td><?php echo $row['password']; ?></td>
             <td>
-                <form action="" method="post">
-                    <input type="hidden" name="edit_id" value="">
+                <form action="register_edit.php" method="post">
+                    <input type="hidden" name="edit_id" value="<?php echo $row['id']; ?>">
                     <button  type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
                 </form>
             </td>
             <td>
                 <form action="" method="post">
-                  <input type="hidden" name="delete_id" value="">
+                  <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
                   <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
                 </form>
             </td>
           </tr>
-        
+          <?php
+        }
+      } else {
+        echo "No Record Found";
+      }
+      ?>
+
         </tbody>
       </table>
 
