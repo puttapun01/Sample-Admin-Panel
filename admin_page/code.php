@@ -78,10 +78,14 @@
 
     $query = "SELECT * FROM register WHERE username='$login_user' AND password='$login_pass' ";
     $query_run = mysqli_query($connection, $query);
+    $row = mysqli_fetch_array($query_run);
 
-    if(mysqli_fetch_assoc($query_run)){
+    if($row['usertype'] == "admin"){
       $_SESSION['username'] = $login_user;
       header('Location: index.php');
+    } else if ($row['usertype'] == "user"){
+      $_SESSION['username'] = $login_user;
+      header('Location: register.php');
     } else {
       $_SESSION['status'] = 'Username or Password is invalid';
       header('Location: login.php');
