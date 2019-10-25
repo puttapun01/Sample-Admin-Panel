@@ -1,3 +1,30 @@
+#billsearch {
+  background-image: url('searchicon.png');
+  background-position: 10px 10px;
+  background-repeat: no-repeat;
+  width: 250px;
+  font-size: 16px;
+  padding: 10px 20px 10px 40px;
+  border: 1px solid #ddd;
+  margin-bottom: 12px;
+  border-radius: 10rem;
+}
+
+.top_title {
+  margin-top: 20px;
+  border-radius: 5px;
+  width: 100%;
+  height: auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+}
+
+.vstatus {
+  border-radius: 10rem;
+  width: 300px;
+  padding: 0px 20px;
+}
+
 .sarabun {
   font-family: 'Sarabun', sans-serif;
 }

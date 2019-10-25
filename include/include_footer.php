@@ -28,6 +28,8 @@
 
 <!-- Page level custom scripts -->
 <script src="admin_page/js/demo/datatables-demo.js"></script>
+<script src="admin_page/js/custom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bs-custom-file-input/dist/bs-custom-file-input.min.js"></script>
 
 </body>
 

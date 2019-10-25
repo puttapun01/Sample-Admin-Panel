@@ -163,13 +163,52 @@
     $query_run = mysqli_query($connection, $query);
 
     if($query_run){
-        unlink('admin_page/upload/bills/'.$image);
-        $_SESSION['success'] = "Delete Success";
-        header('Location: bill-pending.php');
+        if (!unlink('upload/bills/'.$image)) {
+          $_SESSION['status'] = "Delete Error";
+          header('Location: bill-pending.php');
+        } else {
+          $_SESSION['success'] = "Delete Success";
+          header('Location: bill-pending.php');
+        }
     } else {
         $_SESSION['status'] = "Delete Error";
         header('Location: bill-pending.php');
     }
 
   }
+
+  if(isset($_POST['bill_checked_btn'])){
+
+    $bill_id = $_POST['bill_update_id'];
+
+    $query = "UPDATE tb_bill_check SET bill_status='checked' WHERE bill_id='$bill_id' ";
+    $query_run = mysqli_query($connection, $query);
+
+    if($query_run){
+      $_SESSION['success'] = "Bill Updated";
+      header('Location: bill-pending.php');
+    } else {
+      $_SESSION['status'] = "Bill NOT Updated";
+      header('Location: bill-pending.php');
+    }
+
+  }
+
+  if(isset($_POST['bill_c_checked_btn'])){
+
+    $bill_id = $_POST['bill_c_update_id'];
+
+    $query = "UPDATE tb_bill_check SET bill_status='pending' WHERE bill_id='$bill_id' ";
+    $query_run = mysqli_query($connection, $query);
+
+    if($query_run){
+      $_SESSION['success'] = "Bill Updated";
+      header('Location: bill-checked.php');
+    } else {
+      $_SESSION['status'] = "Bill NOT Updated";
+      header('Location: bill-checked.php');
+    }
+
+  }
+
 ?>

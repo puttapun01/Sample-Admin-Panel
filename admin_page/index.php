@@ -12,8 +12,6 @@ include('includes/navbar.php');
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h6 class="m-0 font-weight-bold text-primary">Dashboard</h6>
-    <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
-        class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
   </div>
 
   <!-- Content Row -->
@@ -57,7 +55,15 @@ include('includes/navbar.php');
               <div class="text-xs font-weight-bold text-danger text-uppercase mb-1">Transfer Money (Pending)</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
 
-                Total Bill : 10
+                <?php
+
+                  $query = "SELECT bill_id FROM tb_bill_check WHERE bill_status='pending' ORDER BY bill_id  ";
+                  $query_run = mysqli_query($connection, $query);
+
+                  $row = mysqli_num_rows($query_run);
+
+                  echo '<div class="h5 mb-0 font-weight-bold text-gray-800"> Total Bill : '.$row.'</div>';
+                ?>
 
               </div>
             </div>
@@ -78,7 +84,15 @@ include('includes/navbar.php');
               <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Transfer Money (Checked)</div>
               <div class="h5 mb-0 font-weight-bold text-gray-800">
 
-                Total Bill : 10
+                <?php
+
+                  $query = "SELECT bill_id FROM tb_bill_check WHERE bill_status='checked' ORDER BY bill_id  ";
+                  $query_run = mysqli_query($connection, $query);
+
+                  $row = mysqli_num_rows($query_run);
+
+                  echo '<div class="h5 mb-0 font-weight-bold text-gray-800"> Total Bill : '.$row.'</div>';
+                ?>
 
               </div>
             </div>

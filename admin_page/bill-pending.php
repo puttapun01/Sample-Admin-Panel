@@ -11,15 +11,16 @@ include('includes/navbar.php');
   <!-- Page Heading -->
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h6 class="m-0 font-weight-bold text-danger"><i class="fas fa-file-invoice-dollar"></i>&nbsp BILL Check (Pending)</h6>
+    <!-- <input type="text" id="billsearch" onkeyup="onBillkey()" placeholder="Search" title="Type in a name"> -->
   </div>
-  
+
   <?php
     if(isset($_SESSION['success']) && $_SESSION['success'] !=''){
-      echo '<h3 class="bg-primary text-white"> '.$_SESSION['success'].' </h3>';
+      echo '<h6 class="bg-success text-white vstatus"> STATUS : '.$_SESSION['success'].' </h6>';
       unset($_SESSION['success']);
     }
     if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
-      echo '<h3 class="bg-danger text-white"> '.$_SESSION['status'].' </h3>';
+      echo '<h6 class="bg-danger text-white vstatus"> STATUS : '.$_SESSION['status'].' </h6>';
       unset($_SESSION['status']);
     }
   ?>
@@ -34,7 +35,7 @@ include('includes/navbar.php');
         while ($row = mysqli_fetch_assoc($query_run)) {
     ?>
 
-    <div class="card shadow-sm" style="padding: 5px; width:350px; margin:5px 5px;">
+    <div class="card shadow-sm" id="bcard" style="padding: 5px; width:350px; margin:5px 5px;">
       <div class="card-body">
         <div class="fleft border border-secondary rounded-circle text-secondary text-center" style="width: 27px; height: 27px;font-size:16px; margin-right:20px;"><?php echo $row['bill_id']; ?></i></div>
         <div class="fleft row"><div class="fbold text-dark">Order ID : &nbsp</div><div><?php echo $row['bill_order_id']; ?></div></div>
@@ -59,21 +60,22 @@ include('includes/navbar.php');
         <div class="row sarabun"><div class="fbold text-dark">เพิ่มเติม : &nbsp</div><div><?php echo $row['bill_etc']; ?></div></div>
         <div class="row sarabun"><div class="fbold text-dark">จำนวนเงิน : &nbsp</div><h2 class="text-primary"><?php echo $row['bill_price']; ?></h2><div class="fbold">&nbsp บาท</div></div>
       </div>
-        <form action="" method="POST">
-          <div type="submit" class="btn btn-success" style="width:100%;" name="bill_checked_btn"><i class="far fa-check-circle"></i> Checked</div>
+        <form action="code.php" method="POST">
+          <input type="hidden" name="bill_update_id" value="<?php echo $row['bill_id']; ?>">
+          <button type="submit" name="bill_checked_btn" class="btn btn-success" style="width:100%;"><i class="far fa-check-circle"></i> Checked</button>
         </form>
       </div>
 
       <?php
           }
         } else {
-          echo 'ไม่มีรายการแจ้งการโอนเงิน';
+          echo '<h6 class="bg-secondary text-white vstatus"> ไม่มีรายการ </h6>';
         }
       ?>
 
   </div>
-
   <!-- Content Row -->
+
 </div>
 
 <?php
