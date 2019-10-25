@@ -155,4 +155,21 @@
     }
 
   }
+
+  if(isset($_POST['bill_delete_btn'])) {
+    $id = $_POST['bill_delete_id'];
+    $image = $_POST['bill_delete_image'];
+    $query = "DELETE FROM tb_bill_check WHERE bill_id='$id' ";
+    $query_run = mysqli_query($connection, $query);
+
+    if($query_run){
+        unlink('admin_page/upload/bills/'.$image);
+        $_SESSION['success'] = "Delete Success";
+        header('Location: bill-pending.php');
+    } else {
+        $_SESSION['status'] = "Delete Error";
+        header('Location: bill-pending.php');
+    }
+
+  }
 ?>

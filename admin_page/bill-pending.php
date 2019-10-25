@@ -12,6 +12,17 @@ include('includes/navbar.php');
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h6 class="m-0 font-weight-bold text-danger"><i class="fas fa-file-invoice-dollar"></i>&nbsp BILL Check (Pending)</h6>
   </div>
+  
+  <?php
+    if(isset($_SESSION['success']) && $_SESSION['success'] !=''){
+      echo '<h3 class="bg-primary text-white"> '.$_SESSION['success'].' </h3>';
+      unset($_SESSION['success']);
+    }
+    if(isset($_SESSION['status']) && $_SESSION['status'] !=''){
+      echo '<h3 class="bg-danger text-white"> '.$_SESSION['status'].' </h3>';
+      unset($_SESSION['status']);
+    }
+  ?>
 
   <!-- Content Row -->
   <div class="row">
@@ -25,9 +36,13 @@ include('includes/navbar.php');
 
     <div class="card shadow-sm" style="padding: 5px; width:350px; margin:5px 5px;">
       <div class="card-body">
-        <div class="fleft border border-primary rounded-circle text-primary text-center" style="width: 27px; height: 27px;font-size:16px; margin-right:20px;"><?php echo $row['bill_id']; ?></i></div>
+        <div class="fleft border border-secondary rounded-circle text-secondary text-center" style="width: 27px; height: 27px;font-size:16px; margin-right:20px;"><?php echo $row['bill_id']; ?></i></div>
         <div class="fleft row"><div class="fbold text-dark">Order ID : &nbsp</div><div><?php echo $row['bill_order_id']; ?></div></div>
-        <div class="fright border border-danger rounded-circle text-danger" style="padding:7px; font-size:13px;"><i class="fas fa-trash"></i></div>
+        <form action="code.php" method="POST">
+          <input type="hidden" name="bill_delete_id" value="<?php echo $row['bill_id']; ?>">
+          <input type="hidden" name="bill_delete_image" value="<?php echo $row['bill_image']; ?>">
+          <button type="submit" name="bill_delete_btn" class="fright border border-danger rounded-circle text-danger text-center" style="width: 27px; height: 27px;font-size:12px;"><i class="fas fa-trash"></i></button>
+        </form>
       </div>
       <a href="upload/bills/<?php echo $row['bill_image']; ?>" class="imgcrop">
         <img src="upload/bills/<?php echo $row['bill_image']; ?>" class="vertical">
