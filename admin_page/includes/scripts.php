@@ -15,7 +15,6 @@
   <script src="js/demo/chart-area-demo.js"></script>
   <script src="js/demo/chart-pie-demo.js"></script>
 
-
   <?php
 
 
@@ -32,21 +31,21 @@ if(isset($_POST['registerbtn']))
     {
         $query = "INSERT INTO register (username,email,password) VALUES ('$username','$email','$password')";
         $query_run = mysqli_query($connection, $query);
-    
+
         if($query_run)
         {
             echo "done";
             $_SESSION['success'] =  "Admin is Added Successfully";
             header('Location: register.php');
         }
-        else 
+        else
         {
             echo "not done";
             $_SESSION['status'] =  "Admin is Not Added";
             header('Location: register.php');
         }
     }
-    else 
+    else
     {
         echo "pass no match";
         $_SESSION['status'] =  "Password and Confirm Password Does not Match";

@@ -93,4 +93,66 @@
 
   }
 
+  if(isset($_POST['tracking_edit_btn'])) {
+    $id = $_POST['tracking_edit_id'];
+    $query = "SELECT * FROM tb_tracking WHERE track_id='$id' ";
+    $query_run = mysqli_query($connection, $query);
+  }
+
+  if(isset($_POST['tracking_update_btn'])) {
+    $trackid = $_POST['tracking_edit_id'];
+    $trackdate = $_POST['tracking_edit_date'];
+    $trackby = $_POST['tracking_edit_by'];
+    $tracknumber = $_POST['tracking_edit_number'];
+    $trackuser = $_POST['tracking_edit_user'];
+    $trackend = $_POST['tracking_edit_end'];
+
+    $query = "UPDATE tb_tracking SET track_date='$trackdate', track_company='$trackby', track_number='$tracknumber', track_recuser='$trackuser', track_destination='$trackend' WHERE track_id='$trackid' ";
+    $query_run = mysqli_query($connection, $query);
+
+    if($query_run){
+        $_SESSION['success'] = "Update Success";
+        header('Location: tracking.php');
+    } else {
+        $_SESSION['status'] = "Update Error";
+        header('Location: tracking.php');
+    }
+
+  }
+
+  if(isset($_POST['tracking_add_btn'])){
+    $trackdate = $_POST['tracking_add_date'];
+    $trackby = $_POST['tracking_add_company'];
+    $tracknumber = $_POST['tracking_add_number'];
+    $trackuser = $_POST['tracking_add_recuser'];
+    $trackend = $_POST['tracking_add_destination'];
+
+    $query = "INSERT INTO tb_tracking (track_date, track_company, track_number, track_recuser, track_destination) VALUES ('$trackdate', '$trackby', '$tracknumber', '$trackuser', '$trackend');";
+    $query_run = mysqli_query($connection, $query);
+
+    if($query_run){
+        $_SESSION['success'] = "Added Success";
+        header('Location: tracking.php');
+    } else {
+        $_SESSION['status'] = "Error Add";
+        header('Location: tracking.php');
+    }
+
+  }
+
+  if(isset($_POST['tracking_delete_btn'])) {
+    $id = $_POST['tracking_delete_id'];
+
+    $query = "DELETE FROM tb_tracking WHERE track_id='$id' ";
+    $query_run = mysqli_query($connection, $query);
+
+    if($query_run){
+        $_SESSION['success'] = "Delete Success";
+        header('Location: tracking.php');
+    } else {
+        $_SESSION['status'] = "Delete Error";
+        header('Location: tracking.php');
+    }
+
+  }
 ?>

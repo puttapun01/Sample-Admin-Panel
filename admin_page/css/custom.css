@@ -1,0 +1,49 @@
+.sarabun {
+  font-family: 'Sarabun', sans-serif;
+}
+
+.cbill {
+  width: 50rem;
+  margin: 5px 5px;
+}
+
+.imgcrop {
+    position: relative;
+    width: auto;
+    height: 350px;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 5px 0px;
+}
+
+.imgcrop .horizontal {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    width: auto;
+    -webkit-transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+}
+
+.imgcrop .vertical {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  height: auto;
+  width: 100%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.fright {
+  float: right;
+}
+.fleft {
+  float: left;
+}
+.fbold {
+  font-weight: bold;
+}
